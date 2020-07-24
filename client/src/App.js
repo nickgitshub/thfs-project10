@@ -24,9 +24,6 @@ const CreateCourseWithContext = withContext(CreateCourse)
 const UpdateCourseWithContext = withContext(UpdateCourse)
 const UnhandledErrorWithContext = withContext(UnhandledError)
 
-
-
-
 class App extends Component{
 
   render(){
