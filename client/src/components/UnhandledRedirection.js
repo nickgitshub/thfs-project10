@@ -7,7 +7,7 @@ const UnhandledRedirection = (props) => {
 		<Redirect to={{
 			pathname: '/error',
 			//currentLocation in component will be this.props.location.pathname
-			state: {from: {pathname: props.currentLocation || "/courses"} }
+			state: {from: {pathname: props.currentLocation || "/"} }
 		}} />
 	)
 }

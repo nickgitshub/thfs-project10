@@ -4,17 +4,21 @@ import ReactMarkdown from 'react-markdown';
 const Course = (props) => {
 
  	const fields = props.fields
+  console.log(props)
 
  	return(
       <div>
         <div className="actions--bar">
               <div className="bounds">
                 <div className="grid-100">
-                  <span>
-                    <a className="button" href={`/courses/${fields.id}/update`}>Update Course</a>
-                    <a className="button" href="/#" onClick={props.deleteCourse}>Delete Course</a>
-                  </span>
-                    <a className="button button-secondary" href="/courses">Return to List</a>
+                  {props.authorIsAuthUser
+                    ? <span>
+                        <a className="button" href={`/courses/${fields.id}/update`}>Update Course</a>
+                        <a className="button" href="/#" onClick={props.deleteCourse}>Delete Course</a>
+                      </span>
+                    :<span></span>
+                  }
+                    <a className="button button-secondary" href="/">Return to List</a>
                 </div>
               </div>
         </div>

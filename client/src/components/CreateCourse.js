@@ -59,6 +59,10 @@ export default class CreateCourse extends Component{
 		})
 	}
 
+	returnToCourses = () => {
+		this.props.history.push('/')
+	}
+
 
 
 	render(){
@@ -70,6 +74,7 @@ export default class CreateCourse extends Component{
 	      		courseFunction={this.createCourse}
 	      		errors={currentState.errors}
 	      		handleInputChange={this.handleInputChange}
+	      		cancel={this.returnToCourses}
           	/>
 		)
 	}

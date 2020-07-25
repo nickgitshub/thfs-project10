@@ -27,7 +27,7 @@ export default class UnhandledError extends Component {
 						</span>
 						<a 
 							className="button button-secondary" 
-							href="/courses"
+							href="/"
 						>
 							Return to Course List
 						</a>

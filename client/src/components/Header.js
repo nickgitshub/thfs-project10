@@ -13,7 +13,7 @@ const Header = (props) => {
 	return(
 		<div className="header">
 			<div className="bounds">
-				<a href='/courses'><h1 className="header--logo">Courses</h1></a>
+				<a href='/'><h1 className="header--logo">Courses</h1></a>
 				{authUser
 					?<nav><span>Welcome {authUser.firstName} {authUser.lastName}!</span><a className="signout" href="/signin" onClick={signUserOut}>Sign Out</a></nav>
 					:<nav><span></span><a className="signin" href="/signin">Sign In</a></nav>

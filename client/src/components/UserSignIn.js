@@ -24,7 +24,7 @@ export default class SignIn extends Component{
 		event.preventDefault()
 	    
 	    const { context } = this.props
-	    const { from } = this.props.location.state || { from: { pathname: '/courses' } };
+	    const { from } = this.props.location.state || { from: { pathname: '/' } };
 
 	    await context.actions.signIn(this.state.emailAddress, this.state.password)
 	    	.then(data=> {
@@ -41,7 +41,7 @@ export default class SignIn extends Component{
 	}
 
 	returnToCourses = () => {
-		this.props.history.push('/courses')
+		this.props.history.push('/')
 	}
 
 	render(){

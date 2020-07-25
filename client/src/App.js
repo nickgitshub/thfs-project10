@@ -5,20 +5,23 @@ import withContext from './Context.js'
 import PrivateRoute from './PrivateRoute.js'
 
 import Header from './components/Header.js'
-import CourseList from './components/CourseList.js'
-import SignIn from './components/SignIn.js'
-import SignUp from './components/SignUp.js'
+import Courses from './components/Courses.js'
+import UserSignIn from './components/UserSignIn.js'
+import UserSignOut from './components/UserSignOut.js'
+import UserSignUp from './components/UserSignUp.js'
 import CourseDetail from './components/CourseDetail.js'
 import CreateCourse from './components/CreateCourse.js'
 import UpdateCourse from './components/UpdateCourse.js'
 import NotFound from './components/NotFound.js'
+import NotFoundRedirection from './components/NotFoundRedirection'
 import Forbidden from './components/Forbidden.js'
 import UnhandledError from './components/UnhandledError.js'
 import UnhandledRedirection from './components/UnhandledRedirection.js'
 const HeaderWithContext = withContext(Header)
-const CourseListWithContext = withContext(CourseList)
-const SignInWithContext = withContext(SignIn)
-const SignUpWithContext = withContext(SignUp)
+const CoursesWithContext = withContext(Courses)
+const UserSignInWithContext = withContext(UserSignIn)
+const UserSignOutWithContext = withContext(UserSignOut)
+const UserSignUpWithContext = withContext(UserSignUp)
 const CourseDetailWithContext = withContext(CourseDetail)
 const CreateCourseWithContext = withContext(CreateCourse)
 const UpdateCourseWithContext = withContext(UpdateCourse)
@@ -37,15 +40,17 @@ class App extends Component{
 		  	{fiveHundredError &&
 		  		<UnhandledRedirection currentLocation={errorPageLocation}/>
 	  		}
-		  	<Redirect exact from="/" to="/courses" />
-		  	<Route exact path="/courses" component={CourseListWithContext} />
-		  	<Route path="/signin" component={SignInWithContext}/>
-		  	<Route path="/signup" component={SignUpWithContext}/>
+		  	<Redirect exact from="/courses" to="/" />
+		  	<Route exact path="/" component={CoursesWithContext} />
+		  	<Route path="/signin" component={UserSignInWithContext} />
+		  	<Route path="/signout" component={UserSignOutWithContext} />
+		  	<Route path="/signup" component={UserSignUpWithContext} />
+		  	<Route path="/notfound" component={NotFound} />
 		  	<Route path="/forbidden" component={Forbidden} />
+		  	<Route exact path="/courses/:id" component={CourseDetailWithContext} />
 		  	<PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
-		  	<PrivateRoute exact path="/courses/:id" component={CourseDetailWithContext} />
 		  	<PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
-		  	<Route component={NotFound} />
+		  	<Route component={NotFoundRedirection} />
 		  </Switch>
 	  </BrowserRouter>
     )

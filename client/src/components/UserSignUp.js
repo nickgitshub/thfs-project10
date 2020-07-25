@@ -47,11 +47,8 @@ export default class SignUp extends Component{
 	    			})
 	    		} else if (data.fiveHundred){
 					this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
-				}
-
-	    	})
-	    	.then(
-	    		context.actions.signIn(this.state.emailAddress, this.state.password)
+				} else {
+					context.actions.signIn(this.state.emailAddress, this.state.password)
 	    			.then( (data)=> {
 	    				if(data.errors){
 	    					this.setState({
@@ -63,7 +60,9 @@ export default class SignUp extends Component{
 	    					this.props.history.push('/')
 	    				}
 					})
-    		)
+				}
+
+	    	})
 	    } 
 	}
 

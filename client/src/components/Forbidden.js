@@ -11,7 +11,7 @@ const Forbidden = (props) => {
 	 			  <br />
 	              <div className="bounds">
 	                <div className="grid-100"><span><a className="button" href={`/courses/${from.id}`}>Return to Course</a></span><a
-	                    className="button button-secondary" href="/courses">Return to List</a>
+	                    className="button button-secondary" href="/">Return to List</a>
                     </div>
 	              </div>
 	        </div>

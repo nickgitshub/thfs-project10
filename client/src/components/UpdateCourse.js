@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import FormInput from './FormInput.js'
-import NotFound from './NotFound.js'
-import UnhandledRedirection from './UnhandledRedirection.js'
+import NotFoundRedirection from './NotFoundRedirection.js'
 import ForbiddenRedirection from './ForbiddenRedirection.js'
 
 export default class UpdateCourse extends Component{
@@ -13,6 +12,7 @@ export default class UpdateCourse extends Component{
 		estimatedTime: null,
 		materialsNeeded: null,
 		userId: null,
+		notFound: false,
 		errors: []
 	}
 
@@ -23,8 +23,11 @@ export default class UpdateCourse extends Component{
   	retrieveCourse = async(paramsId) => {
 
 		const course = await this.props.context.data.getCourse(paramsId)
-		
-		if(course.id){
+
+		if(course.fiveHundred){
+			this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+		}else {
+			if(course.id){
 			this.setState({
 				id: course.id,
 				title: course.title,
@@ -32,12 +35,16 @@ export default class UpdateCourse extends Component{
 				description: course.description, 
 				estimatedTime: course.estimatedTime,
 				materialsNeeded: course.materialsNeeded,
-				userId: course.user.id,
-				redirect: false
-			})
+				userId: course.user.id
+				})
+			} else {
+				this.setState({
+					notFound: true
+				})
+			}
 		}
 		
-		return course;
+
 	}
 
 	updateCourse = async(event) => {
@@ -85,27 +92,21 @@ export default class UpdateCourse extends Component{
 	}
 
 	render(){
-
-		return(
-			//Two terninaries for rendering redirections
-			<Fragment>
-				{this.state.id !== null
-					?	<Fragment>
-							{this.state.userId === this.props.context.authenticatedUser.userId
-								?<FormInput 
-									currentState={this.state}
-									createOrUpdate={"Update"}
-						      		courseFunction={this.updateCourse}
-						      		errors={this.state.errors}
-						      		handleInputChange={this.handleInputChange}
-						      		cancel={this.returnToCourse}
-							 	 />
-							 	:<ForbiddenRedirection courseId={this.props.match.params.id} /> 
-						 	}
-						</Fragment>
-					:<NotFound /> 
-				}
-			</Fragment>
-		)
+		if(this.state.notFound === true){
+			return <NotFoundRedirection /> 
+		} else if (this.state.userId === this.props.context.authenticatedUser.userId){
+			return(
+				<FormInput 
+					currentState={this.state}
+					createOrUpdate={"Update"}
+		      		courseFunction={this.updateCourse}
+		      		errors={this.state.errors}
+		      		handleInputChange={this.handleInputChange}
+		      		cancel={this.returnToCourse}
+			 	 />
+			)
+		} else {
+			return(<ForbiddenRedirection courseId={this.props.match.params.id} />)
+		}
 	}
 }
