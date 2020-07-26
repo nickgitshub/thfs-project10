@@ -15,7 +15,7 @@ export default class CourseList extends Component{
 		const courses = await this.props.context.data.getCourses()
 		
 		if(courses.fiveHundred){
-			this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+			this.props.history.push('/error')
 		} else {
 				this.setState({
 				coursesArray: courses

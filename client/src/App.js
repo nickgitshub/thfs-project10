@@ -16,7 +16,6 @@ import NotFound from './components/NotFound.js'
 import NotFoundRedirection from './components/NotFoundRedirection'
 import Forbidden from './components/Forbidden.js'
 import UnhandledError from './components/UnhandledError.js'
-import UnhandledRedirection from './components/UnhandledRedirection.js'
 const HeaderWithContext = withContext(Header)
 const CoursesWithContext = withContext(Courses)
 const UserSignInWithContext = withContext(UserSignIn)
@@ -30,16 +29,12 @@ const UnhandledErrorWithContext = withContext(UnhandledError)
 class App extends Component{
 
   render(){
-  	const { fiveHundredError, errorPageLocation } = this.props.context
 
     return (
 	  <BrowserRouter>
 		  <HeaderWithContext /> 
 		  <Switch>
 		  	<Route path="/error" component={UnhandledErrorWithContext} />
-		  	{fiveHundredError &&
-		  		<UnhandledRedirection currentLocation={errorPageLocation}/>
-	  		}
 		  	<Redirect exact from="/courses" to="/" />
 		  	<Route exact path="/" component={CoursesWithContext} />
 		  	<Route path="/signin" component={UserSignInWithContext} />

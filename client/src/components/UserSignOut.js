@@ -5,7 +5,7 @@ const UserSignOut = (props) => {
 	console.log(authUser)
 
 	const signOut = () => {
-		// props.context.actions.signOut()
+		props.context.actions.signOut()
 	}
 
 	const goToSignIn = () => {

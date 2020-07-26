@@ -33,7 +33,7 @@ export default class SignIn extends Component{
     					errors: data.errors
     				})
     			} else if (data.fiveHundred){
-					this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+					this.props.history.push('/error')
     			} else {
     				this.props.history.push(from)
     			}

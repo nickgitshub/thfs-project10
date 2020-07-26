@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import FormInput from './FormInput.js'
 import NotFoundRedirection from './NotFoundRedirection.js'
 import ForbiddenRedirection from './ForbiddenRedirection.js'
@@ -25,7 +25,7 @@ export default class UpdateCourse extends Component{
 		const course = await this.props.context.data.getCourse(paramsId)
 
 		if(course.fiveHundred){
-			this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+			this.props.history.push('/error')
 		}else {
 			if(course.id){
 			this.setState({
@@ -70,7 +70,7 @@ export default class UpdateCourse extends Component{
 						errors: data.errors
 					})
 				} else if (data.fiveHundred){
-					this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+					this.props.history.push('/error')
 				}else {
 					this.returnToCourse()
 				}

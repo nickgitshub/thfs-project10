@@ -30,7 +30,7 @@ export default class CourseDetail extends Component{
 		const course = await this.props.context.data.getCourse(id)
 
 		if(course.fiveHundred){
-			this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+			this.props.history.push('/error')
 		}else {
 			if(course.id){
 				const authUser = this.props.context.authenticatedUser || {userId: null} 
@@ -63,13 +63,14 @@ export default class CourseDetail extends Component{
 						errors: data.errors
 					})
 				} else if(data.fiveHundred){
-					this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+					this.props.history.push('/error')
 				} else {
 					this.props.history.push('/')
 				}
 			})
 	}
 
+	//confirmDeletion and cancelDeletion are used to toggle the appearance of the SweetAlert
 	confirmDeletion = (event) => {
 		event.preventDefault()
 		this.setState({

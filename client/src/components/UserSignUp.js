@@ -46,7 +46,7 @@ export default class SignUp extends Component{
 	    				formErrors: data.errors
 	    			})
 	    		} else if (data.fiveHundred){
-					this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+					this.props.history.push('/error')
 				} else {
 					context.actions.signIn(this.state.emailAddress, this.state.password)
 	    			.then( (data)=> {
@@ -55,7 +55,7 @@ export default class SignUp extends Component{
 								formErrors: data.errors
 							})
 	    				} else if (data.fiveHundred){
-							this.props.context.actions.setFiveHundredError(true, this.props.location.pathname)
+							this.props.history.push('/error')
 						}else{
 	    					this.props.history.push('/')
 	    				}

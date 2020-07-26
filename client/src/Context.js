@@ -12,21 +12,16 @@ export class Provider extends Component{
 	}
 
 	state = {
-		authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
-		fiveHundredError: false,
-		errorPageLocation: "/"
+		authenticatedUser: Cookies.getJSON('authenticatedUser') || null
 	}
 
 	render() {
-		const { authenticatedUser, fiveHundredError, errorPageLocation } = this.state
+		const { authenticatedUser } = this.state
 
 		const value = {
 			authenticatedUser,
-			fiveHundredError,
-			errorPageLocation,
 			data: this.data,
 			actions: {
-				setFiveHundredError: this.setFiveHundredError,
 				signIn: this.signIn,
 				signOut: this.signOut
 			}
@@ -37,13 +32,6 @@ export class Provider extends Component{
 				{this.props.children}
 			</Context.Provider>
 		)
-	}
-
-	setFiveHundredError = (boolean, errorPageLocation) =>{
-		this.setState({
-			fiveHundredError: boolean,
-			errorPageLocation: errorPageLocation
-		})
 	}
 
 	signIn = async(email, password) => {
