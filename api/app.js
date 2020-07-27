@@ -194,7 +194,7 @@ app.get('/api/courses', asyncHandler(async(req, res) => {
 
 //Return a particular course
 app.get('/api/courses/:id', asyncHandler(async(req, res, next) => {
-  const Course = await Course.findOne({
+  const particularCourse = await Course.findOne({
     attributes: {exclude: ['createdAt', 'updatedAt', 'userId']},
     include:[{
     model: User,

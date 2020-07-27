@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+
+//Component is used by CourseDetail to provide the JSX for each individual course
 const Course = (props) => {
 
+  //passes the required state
  	const fields = props.fields
-  console.log(props)
 
  	return(
       <div>
         <div className="actions--bar">
               <div className="bounds">
                 <div className="grid-100">
-                  {props.authorIsAuthUser
+                  {
+                  //Is only showing the Update and Delete buttons if the author of the course is the authenticatedUser
+                  //Only a Return To Lists will be displayed if the current Author isn't the current User
+                  props.authorIsAuthUser
                     ? <span>
                         <a className="button" href={`/courses/${fields.id}/update`}>Update Course</a>
                         <a className="button" href="/#" onClick={props.deleteCourse}>Delete Course</a>

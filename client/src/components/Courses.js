@@ -11,9 +11,11 @@ export default class CourseList extends Component{
 		this.retrieveCourses()
   	}
 
+  	//retrieves an array of all courses
 	retrieveCourses = async() => {
 		const courses = await this.props.context.data.getCourses()
 		
+		//redirects server errors
 		if(courses.fiveHundred){
 			this.props.history.push('/error')
 		} else {

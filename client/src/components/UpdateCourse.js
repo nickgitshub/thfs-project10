@@ -13,20 +13,26 @@ export default class UpdateCourse extends Component{
 		materialsNeeded: null,
 		userId: null,
 		notFound: false,
+		forbidden: false, 
 		errors: []
 	}
 
 	componentDidMount() {
+		//loads course when component mounts
 		this.retrieveCourse(this.props.match.params.id)
   	}
 
   	retrieveCourse = async(paramsId) => {
 
+  		//retrieves courses via Context which uses Data.js to interact with API
 		const course = await this.props.context.data.getCourse(paramsId)
 
+		//handles 500 (Server) Errors by redirecting traffic
 		if(course.fiveHundred){
 			this.props.history.push('/error')
 		}else {
+			//populates the coures with data from the API call
+			//forbidden will prevent non-authors of the course from accessing the page
 			if(course.id){
 			this.setState({
 				id: course.id,
@@ -35,7 +41,8 @@ export default class UpdateCourse extends Component{
 				description: course.description, 
 				estimatedTime: course.estimatedTime,
 				materialsNeeded: course.materialsNeeded,
-				userId: course.user.id
+				userId: course.user.id,
+				forbidden: course.id !== this.props.context.authenticatedUser.userId
 				})
 			} else {
 				this.setState({
@@ -47,6 +54,7 @@ export default class UpdateCourse extends Component{
 
 	}
 
+	//
 	updateCourse = async(event) => {
 		event.preventDefault()
 
@@ -57,12 +65,15 @@ export default class UpdateCourse extends Component{
 
 		const currentState = this.state
 
+		//create requestBody for API update to database
 		const requestBody = {
 			"title": currentState.title,
 			"description": currentState.description,
 			"estimatedTime": currentState.estimatedTime,
 			"materialsNeeded":currentState.materialsNeeded
 		}
+
+		//'POST' call to API via Context which uses Data.js
 		await this.props.context.data.updateCourse(emailAddress, password, courseId, requestBody)
 			.then(data=> {
 				if(data.errors){
@@ -78,6 +89,8 @@ export default class UpdateCourse extends Component{
 	}
 
 
+	//changes state on every keystroke within a input field
+	//the 'name' of the input matches the key in the state object
 	handleInputChange = (event) => {
 		const target = event.target
 		const value = target.value
@@ -87,15 +100,23 @@ export default class UpdateCourse extends Component{
 		})
 	}
 
+	//function for going back to the course page
 	returnToCourse = () => {
 		this.props.history.push(`/courses/${this.props.match.params.id}`)
 	}
 
 	render(){
+		console.log(this.state.userId, this.props.context.authenticatedUser.userId, this.state.userId !== this.props.context.authenticatedUser.userId)
+		
 		if(this.state.notFound === true){
+			//if no Course is found for current id, it redirects to a 404 page
 			return <NotFoundRedirection /> 
-		} else if (this.state.userId === this.props.context.authenticatedUser.userId){
+		} else if (this.state.forbidden){
+			//if author of current course doesn't match authenticatedUser, it redirects to forbidden
+			return(<ForbiddenRedirection courseId={this.props.match.params.id} />)
+		} else {
 			return(
+				//FormInput renders JSX for form with current state being passed into it
 				<FormInput 
 					currentState={this.state}
 					createOrUpdate={"Update"}
@@ -105,8 +126,6 @@ export default class UpdateCourse extends Component{
 		      		cancel={this.returnToCourse}
 			 	 />
 			)
-		} else {
-			return(<ForbiddenRedirection courseId={this.props.match.params.id} />)
 		}
 	}
 }

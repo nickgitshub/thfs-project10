@@ -2,6 +2,7 @@ import React from 'react'
 
 const UnhandledError = () => {
 
+	//JSX for '/error' route
 	return(
 		<div>
 			<h2 className="validation--errors--label">A server error has occurred</h2>

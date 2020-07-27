@@ -1,7 +1,9 @@
 import React from 'react'
 
+//Component rendered for the '/forbidden' route
 const Forbidden = (props) => {
 
+	//provides a path that component can use for returning to previous course
 	const { from } = props.location.state || { from: { id: '' } };
 
 	return(

@@ -16,6 +16,10 @@ import NotFound from './components/NotFound.js'
 import NotFoundRedirection from './components/NotFoundRedirection'
 import Forbidden from './components/Forbidden.js'
 import UnhandledError from './components/UnhandledError.js'
+
+//adding Context Consumer (from Context.js) to the routes 
+//that need access to Context Functions or need to know the AuthenticatedUser
+
 const HeaderWithContext = withContext(Header)
 const CoursesWithContext = withContext(Courses)
 const UserSignInWithContext = withContext(UserSignIn)
@@ -40,11 +44,11 @@ class App extends Component{
 		  	<Route path="/signin" component={UserSignInWithContext} />
 		  	<Route path="/signout" component={UserSignOutWithContext} />
 		  	<Route path="/signup" component={UserSignUpWithContext} />
-		  	<Route path="/notfound" component={NotFound} />
-		  	<Route path="/forbidden" component={Forbidden} />
-		  	<Route exact path="/courses/:id" component={CourseDetailWithContext} />
 		  	<PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
+		  	<Route exact path="/courses/:id" component={CourseDetailWithContext} />
 		  	<PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
+	  		<Route path="/forbidden" component={Forbidden} />
+		  	<Route path="/notfound" component={NotFound} />
 		  	<Route component={NotFoundRedirection} />
 		  </Switch>
 	  </BrowserRouter>

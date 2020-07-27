@@ -1,6 +1,7 @@
 import React from 'react'
 
-
+//component receives are array of errors and displays them using the below JSX 
+//used throughout the app to display errors at the tops of forms
 const ErrorDisplay = (props) => {
 	const { errors } = props
 

@@ -25,13 +25,17 @@ export default class CourseDetail extends Component{
 			this.retrieveCourse(this.props.match.params.id)
   	}
 
+  	//retrieves the course whose id is included in url ('/courses/:id')
 	retrieveCourse = async(id) => {
 
 		const course = await this.props.context.data.getCourse(id)
 
+		//redirects to an error page if there's a server error
 		if(course.fiveHundred){
 			this.props.history.push('/error')
 		}else {
+			//if there's a course, it is retrieved from the API
+			//authorIsAuthUser checks whether the current user is the author of the course and passes that to the Course.js
 			if(course.id){
 				const authUser = this.props.context.authenticatedUser || {userId: null} 
 				this.setState({
@@ -44,6 +48,7 @@ export default class CourseDetail extends Component{
 					authorIsAuthUser: course.user.id === authUser.userId
 				})
 			} else {
+				//if there's not a course, notFound is set to true so that the page will be re-routed to a 404 message
 				this.setState({
 					notFound: true
 				})	
@@ -52,7 +57,7 @@ export default class CourseDetail extends Component{
 	}
 
 	
-
+	//deletes the course whose id is provided
 	deleteCourse = async(id) => {
 
 		const authUser = this.props.context.authenticatedUser
@@ -86,6 +91,7 @@ export default class CourseDetail extends Component{
 
 	render(){
 
+		//calls a Redirection component if the course is unable to be retrieved
 		if (this.state.notFound === true){
 			return(
 				<NotFoundRedirection /> 
@@ -94,6 +100,7 @@ export default class CourseDetail extends Component{
 			return(
 		      	<div>
 		      		<ErrorDisplay errors={this.state.errors}/>
+		      		{/*** SweetAlert used to confirm user actually wants to delete course ***/}
 		      		<SweetAlert
 					  warning
 					  showCancel

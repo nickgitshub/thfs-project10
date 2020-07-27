@@ -1,6 +1,7 @@
 import config from './config';
 
 export default class Data {
+	//creating an API url and headers that can be used to send the request
 	api(path, method = 'GET', body=null, requiresAuth = false, credentials = null) {
 		const url = config.apiBaseUrl + path
 
@@ -29,6 +30,7 @@ export default class Data {
 	}
 
 
+	//gets the current user and returns their profile information (GET)
 	async getUser(emailAddress, password){
 		try{
 			const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
@@ -50,6 +52,7 @@ export default class Data {
 		
 	}
 
+	//creates a new user using a User object (POST)
 	async createUser(user){
 		try{
 			const response = await this.api('/users', 'POST', user);
@@ -70,6 +73,7 @@ export default class Data {
 		
 	}
 
+	//gets an array of Course objects (GET)
 	async getCourses(){
 		try{
 			const response = await this.api('/courses', 'GET')
@@ -86,6 +90,7 @@ export default class Data {
 		
 	}
 
+	//gets a particular course (GET)
 	async getCourse(id){
 		try{
 			const response = await this.api(`/courses/${id}`, 'GET')
@@ -102,6 +107,7 @@ export default class Data {
 		
 	}
 
+	//create a course (POST) using the body object that's passed in
 	async createCourse(emailAddress, password, body){
 		try{
 			const response = await this.api('/courses', 'POST', body, true, {emailAddress, password})
@@ -124,6 +130,7 @@ export default class Data {
 		
 	}
 
+	//updates a Course using a PUT and returns a Success message to let the client know that the action is completed
 	async updateCourse(emailAddress, password, courseId, body){
 		try{
 			const path = `/courses/${courseId}`
@@ -144,7 +151,8 @@ export default class Data {
 		}
 	}
 
-	async deleteCourse(emailAddress, password, courseId, body){
+	//Deletes a course and returns a Success message to the client to let it know that the action has completed
+	async deleteCourse(emailAddress, password, courseId){
 
 		try{
 			const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, {emailAddress, password})

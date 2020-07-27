@@ -11,6 +11,7 @@ export default class CreateCourse extends Component{
 	}
 
 	componentDidMount() {
+		//sets the name of the author that will be displayed on the FormInput to be authenticatedUser's name
 		const authUser = this.props.context.authenticatedUser
 		const userName = authUser.firstName + " " + authUser.lastName
 		this.setState({
@@ -28,6 +29,7 @@ export default class CreateCourse extends Component{
 
 		const currentState = this.state
 
+		//request body will be sent to Data.js and onto the API
 		const requestBody = {
 			"userId": authUser.userId,
 			"title": currentState.title,
@@ -39,12 +41,15 @@ export default class CreateCourse extends Component{
 		await this.props.context.data.createCourse(emailAddress, password, requestBody)
 			.then(data=> {
 				if(data.errors){
+					//form validation errors are passed to FormInput and displayed at the top of the form
 					this.setState({
 						errors: data.errors
 					})
 				} else if (data.fiveHundred){
+					//server errors are redirected to the error page
 					this.props.history.push('/error')
 				} else {
+					//return to course if creation is successful
 					this.props.history.push(data.courseLocation)
 				}
 			})
@@ -66,7 +71,10 @@ export default class CreateCourse extends Component{
 
 
 	render(){
+		//passes state to current form
 		const currentState = this.state
+
+		//
 		return(
 			<FormInput
 				currentState={currentState}

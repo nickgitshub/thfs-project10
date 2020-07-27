@@ -11,6 +11,8 @@ export default class SignIn extends Component{
 		errors: []
 	}
 
+	//on each keystroke, changes in the form are saved to state
+	//'name' on input element is used as the key for state object
 	handleInputChange = (event) => {
 		const target = event.target
 		const value = target.value
@@ -20,15 +22,23 @@ export default class SignIn extends Component{
 		})
 	}
 
+	//signs user in and redirects them back to the page they were at prior to sign in
 	submitSignIn = async(event) => {
 		event.preventDefault()
 	    
-	    const { context } = this.props
+		//grabbing the path of where the user was at prior to coming to the sign in page
+		//the Redirect component in PrivateRoute passed the path into the "from" state
 	    const { from } = this.props.location.state || { from: { pathname: '/' } };
 
+	    //grabbing the context
+	    const { context } = this.props
+
+	    //signs in via Context.js which uses Data.js and displays errors if any occurred
+	    //pushes to page where it just came "from" if it was redirected via PrivateRoute
 	    await context.actions.signIn(this.state.emailAddress, this.state.password)
 	    	.then(data=> {
     			if(data.errors){
+    				//validation errors returned and displayed if there are field validation errors
     				this.setState({
     					errors: data.errors
     				})
@@ -40,6 +50,7 @@ export default class SignIn extends Component{
     		})
 	}
 
+	//returns user to route with list of courses
 	returnToCourses = () => {
 		this.props.history.push('/')
 	}

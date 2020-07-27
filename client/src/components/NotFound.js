@@ -1,6 +1,8 @@
 import React from 'react';
 
 const NotFound = () => {
+	
+	//component for the '/notfound' route
 	return(
 		<div className="bounds">
 	        <h1>Not Found</h1>

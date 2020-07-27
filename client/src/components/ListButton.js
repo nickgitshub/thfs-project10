@@ -1,6 +1,7 @@
 
 import React from 'react'
 
+//component used with Courses Components to display each Course
 const ListButton = (props) => {
 	return(
 		<div className="grid-33">
