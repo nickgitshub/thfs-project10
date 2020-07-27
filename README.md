@@ -1,4 +1,4 @@
-# Setup Instruction
+# Setup Instructions
 
 This folder contains both the client folder and the api folder. Both use NodeJS and use npm for package management
 
