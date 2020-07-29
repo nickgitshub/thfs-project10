@@ -22,6 +22,7 @@ export default class CourseDetail extends Component{
 	}
 
 	componentDidMount() {
+			//pass url id to the retrieveCourse function defined below
 			this.retrieveCourse(this.props.match.params.id)
   	}
 
@@ -60,6 +61,7 @@ export default class CourseDetail extends Component{
 	//deletes the course whose id is provided
 	deleteCourse = async(id) => {
 
+		//calls a 'GET' to API to retrieve the authenticatedUser
 		const authUser = this.props.context.authenticatedUser
 		await this.props.context.data.deleteCourse(authUser.emailAddress, authUser.password, this.state.id)
 			.then(data => {
@@ -75,7 +77,9 @@ export default class CourseDetail extends Component{
 			})
 	}
 
-	//confirmDeletion and cancelDeletion are used to toggle the appearance of the SweetAlert
+	/*** confirmDeletion and cancelDeletion are used to toggle the appearance of the SweetAlert ***/
+
+	//triggered when 'Yes' is clicked on prompt
 	confirmDeletion = (event) => {
 		event.preventDefault()
 		this.setState({
@@ -83,6 +87,7 @@ export default class CourseDetail extends Component{
 		})
 	}
 
+	//removes SweetAlert from page when 'Cancel' is clicked
 	cancelDeletion = () => {
 		this.setState({
 			show: false

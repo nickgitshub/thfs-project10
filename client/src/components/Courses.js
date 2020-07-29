@@ -8,6 +8,7 @@ export default class CourseList extends Component{
 	}
 
 	componentDidMount() {
+		//calls the function defined below upon Component mounting
 		this.retrieveCourses()
   	}
 

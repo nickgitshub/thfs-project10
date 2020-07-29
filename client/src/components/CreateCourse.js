@@ -19,6 +19,7 @@ export default class CreateCourse extends Component{
 		})
 	}
 
+	//function for sending a POST request to the API to create a new course
 	createCourse = async(event) => {
 		event.preventDefault()
 
@@ -38,6 +39,7 @@ export default class CreateCourse extends Component{
 			"materialsNeeded":currentState.materialsNeeded
 		}
 		
+		//uses Data.js(via Context) to call the API using a POST request
 		await this.props.context.data.createCourse(emailAddress, password, requestBody)
 			.then(data=> {
 				if(data.errors){
@@ -55,6 +57,7 @@ export default class CreateCourse extends Component{
 			})
 	}
 
+	//when an input field is updated, state is updated using the name of the input as a key
 	handleInputChange = (event) => {
 		const target = event.target
 		const value = target.value
@@ -64,6 +67,7 @@ export default class CreateCourse extends Component{
 		})
 	}
 
+	//handler that returns the user to home, which is the courses screen
 	returnToCourses = () => {
 		this.props.history.push('/')
 	}
@@ -74,7 +78,7 @@ export default class CreateCourse extends Component{
 		//passes state to current form
 		const currentState = this.state
 
-		//
+		//FormInput contains JSX for form fields
 		return(
 			<FormInput
 				currentState={currentState}

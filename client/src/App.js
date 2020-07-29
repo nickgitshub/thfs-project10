@@ -17,8 +17,10 @@ import NotFoundRedirection from './components/NotFoundRedirection'
 import Forbidden from './components/Forbidden.js'
 import UnhandledError from './components/UnhandledError.js'
 
-//adding Context Consumer (from Context.js) to the routes 
-//that need access to Context Functions or need to know the AuthenticatedUser
+/*** 
+Adding Context Consumer (from Context.js) to the routes 
+that need access to Context Functions or need to know the AuthenticatedUser 
+***/
 
 const HeaderWithContext = withContext(Header)
 const CoursesWithContext = withContext(Courses)
@@ -35,6 +37,10 @@ class App extends Component{
   render(){
 
     return (
+    	/*** 
+		Router displays a Header on every page
+		Redirects to the '/notfound' route if none of the routes match
+		***/
 	  <BrowserRouter>
 		  <HeaderWithContext /> 
 		  <Switch>

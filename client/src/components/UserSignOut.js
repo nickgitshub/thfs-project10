@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 
 const UserSignOut = (props) => {
 	const authUser = props.context.authenticatedUser
-	console.log(authUser)
 
 	//uses Context to sign user out
 	const signOut = () => {

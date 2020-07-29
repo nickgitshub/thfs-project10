@@ -30,6 +30,7 @@ export class Provider extends Component{
 			}
 		}
 
+		//use the value object in Provider to share Context state with the entire app
 		return (
 			<Context.Provider value={value}>
 				{this.props.children}
@@ -45,11 +46,14 @@ export class Provider extends Component{
 		if(user.userId){
 			//sets the User password to plain text in the Cookie so that it can be re-encrypted on future API requests
 			user.password = password
+			//sets the user object as the authenticatedUser
+			//no accessible across the entire app
 			this.setState(()=> {
 				return{
 					authenticatedUser: user,
 				}
 			})
+			//stores yser credentials in the Cookie
 			Cookies.set('authenticatedUser', JSON.stringify(user), {expires: 1})
 		}
 		return user;
@@ -65,6 +69,7 @@ export class Provider extends Component{
 	}
 }
 
+//export Consumer for external use
 export const Consumer = Context.Consumer
 
 

@@ -2,7 +2,10 @@ import React from 'react'
 import ErrorDisplay from './ErrorDisplay.js'
 
 //compoment used both to Create and Update courses
-//State for fields will be empty strings for Create and populated for Update
+
+//State for fields will be empty strings for Create or populated for Update
+//Both Create and Update pass event handlers into component via props
+
 //Terinaries are used to alternate between "Create Course" and "Update Course" buttons
 const FormInput = (props) => {
 	return(

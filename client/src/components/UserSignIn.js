@@ -43,8 +43,10 @@ export default class SignIn extends Component{
     					errors: data.errors
     				})
     			} else if (data.fiveHundred){
+    				//redirect to error page when there's a server error
 					this.props.history.push('/error')
     			} else {
+    				//redirect back to the page the user came from after a successful sign-in
     				this.props.history.push(from)
     			}
     		})

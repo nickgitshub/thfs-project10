@@ -22,6 +22,7 @@ export default class UpdateCourse extends Component{
 		this.retrieveCourse(this.props.match.params.id)
   	}
 
+  	//retrieve course information (using the id in the url) and saving it to state
   	retrieveCourse = async(paramsId) => {
 
   		//retrieves courses via Context which uses Data.js to interact with API
@@ -54,7 +55,18 @@ export default class UpdateCourse extends Component{
 
 	}
 
-	//
+	//changes state on every keystroke within a input field
+	//the 'name' of the input matches the key in the state object
+	handleInputChange = (event) => {
+		const target = event.target
+		const value = target.value
+		const name = target.name
+		this.setState({
+			[name]: value
+		})
+	}
+
+	//using Data.js (via Context) to send a PUT request to the API
 	updateCourse = async(event) => {
 		event.preventDefault()
 
@@ -73,32 +85,23 @@ export default class UpdateCourse extends Component{
 			"materialsNeeded":currentState.materialsNeeded
 		}
 
-		//'POST' call to API via Context which uses Data.js
+		//'PUT' request to API via Context which uses Data.js
 		await this.props.context.data.updateCourse(emailAddress, password, courseId, requestBody)
 			.then(data=> {
+				//displays form validation errors at the top of form being used to update the course
 				if(data.errors){
 					this.setState({
 						errors: data.errors
 					})
 				} else if (data.fiveHundred){
+					//redirects server errors to the error url
 					this.props.history.push('/error')
 				}else {
+					//returns to '/course/:id' path using the id in the current URL
 					this.returnToCourse()
 				}
 			})
-	}
-
-
-	//changes state on every keystroke within a input field
-	//the 'name' of the input matches the key in the state object
-	handleInputChange = (event) => {
-		const target = event.target
-		const value = target.value
-		const name = target.name
-		this.setState({
-			[name]: value
-		})
-	}
+	}	
 
 	//function for going back to the course page
 	returnToCourse = () => {
@@ -106,8 +109,8 @@ export default class UpdateCourse extends Component{
 	}
 
 	render(){
-		console.log(this.state.userId, this.props.context.authenticatedUser.userId, this.state.userId !== this.props.context.authenticatedUser.userId)
 		
+		//determining JSX for page based on current state
 		if(this.state.notFound === true){
 			//if no Course is found for current id, it redirects to a 404 page
 			return <NotFoundRedirection /> 
