@@ -34,6 +34,7 @@ export default class UpdateCourse extends Component{
 		}else {
 			//populates the coures with data from the API call
 			//forbidden will prevent non-authors of the course from accessing the page
+			
 			if(course.id){
 			this.setState({
 				id: course.id,
@@ -43,7 +44,7 @@ export default class UpdateCourse extends Component{
 				estimatedTime: course.estimatedTime,
 				materialsNeeded: course.materialsNeeded,
 				userId: course.user.id,
-				forbidden: course.id !== this.props.context.authenticatedUser.userId
+				forbidden: course.user.id !== this.props.context.authenticatedUser.userId
 				})
 			} else {
 				this.setState({
