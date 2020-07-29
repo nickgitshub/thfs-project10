@@ -2,7 +2,7 @@
 
 After downloading or cloing files, navigate to client directory. 
 
-In files, execute 
+In client directory, execute 
 
 `npm install`
 
